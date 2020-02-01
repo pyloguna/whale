@@ -1,14 +1,25 @@
-# qr_id
+# **qr_id**
+
+# indice
+
+ + [Requisitos](#Requisitos "ir a requisitos de instalacion")
+ + [Instalacion](#Instalacion "ir a la guia de instalacion")
+   + [Clonar el repositorio](#Clonando-el-repositorio "ir a guia de clonacion")
+   + [Configurar el entorno de desarrollo](#configurar-el-entorno-de-desarrollo "ir a guia de configuracion para desarrollo") (opcional)
+     + [Configurar VS code](#configurando-visual-studio-code "guia de vscode") (opcional)
+     * [Configurar PyCharm](#configurando-pycharm "guia de pycharm") (opcional)
+   + [Instalar dependencias](#instalar-dependencias "instalando dependencias")
+ + [Uso de los Scripts](#ejecutar-los-scripts "ir a guia uso")
+ + [notas adicionales](#notas-relevantes "ver las notas adicionales")
 
 
-
-## Requisitos
+# Requisitos
 - [**Visual Studio Code**](https://code.visualstudio.com/): (opcional) editor de texto con soporte de python y multiples extensiones
 - [**JetBrains**](https://www.jetbrains.com/es-es/pycharm/): (opcional, recomendado) IDE diseñado para python 
 - [**git**](https://git-scm.com/): nescesario para clonar los repositorios
 - [**python 3**](https://www.python.org/downloads/): Interprete oficial de python,tambien se puede usar otra distribucion como anaconda
 
-## Instrucciones de instalacion
+# Instalacion
 
 ## Clonando el repositorio
 mediante la terminal preferida clonar la direccion de este repositorio, ejemplo:
@@ -16,6 +27,10 @@ mediante la terminal preferida clonar la direccion de este repositorio, ejemplo:
 git clone https://github.com/pyloguna/qr_id.git
 ```
 `nota: esto clonara el repositorio en una subcarpeta en el directorio actual, por lo que es importante conocer donde se clona el proyecto`
+
+
+# configurar el entorno de desarrollo
+
 
 ## configurando visual studio code
 
@@ -25,7 +40,7 @@ una vez instalado en la categoria de extensiones podemos instalar la extension d
 
 pycharm provee su propia guia de instalacion inicial, simplemente basta con escoger el entorno de python y el folder deseado
 
-## instalando las dependencias del proyecto
+# instalar dependencias
 mediante el interprete de python en la carpeta destino ejecutar en una linea de comandos
 ```
 python -m pip install -r requirements.txt
@@ -42,7 +57,7 @@ si el comando `pip` reporta errores de instalacion, puede que se requieran permi
 
 >si se desea conocer mas sobre el uso del gestor de paquetes se puede visitar su enlace : [**pip**](https://pypi.org/project/pip/)
 
-## ejecutando los scripts
+# ejecutar los scripts
 
 en una linea de comandos en el folder del proyecto, moverse a la carpeta de los scripts mediante:
 ```
