@@ -5,7 +5,7 @@
 ## Requisitos
 - [**Visual Studio Code**](https://code.visualstudio.com/): (opcional) editor de texto con soporte de python y multiples extensiones
 - [**JetBrains**](https://www.jetbrains.com/es-es/pycharm/): (opcional, recomendado) IDE diseñado para python 
-- [**git**](https://git-scm.com/):nescesario para clonar los repositorios
+- [**git**](https://git-scm.com/): nescesario para clonar los repositorios
 - [**python 3**](https://www.python.org/downloads/): Interprete oficial de python,tambien se puede usar otra distribucion como anaconda
 
 ## Instrucciones de instalacion
@@ -38,7 +38,7 @@ python -m pip install (paquete)
 
 si el comando `pip` reporta errores de instalacion, puede que se requieran permisos elevados, se puede solucionar agregando el parametro `--user` al final del comando, o ejecutandolo con permisos elevados. 
 
->*`si los paquetes no se muestran a pesar de estar instalados verifique que se ejecutan como modulo de python, sino se usara el pip del python incluido en el path`*.
+>*`si los paquetes no se muestran a pesar de estar instalados verifique que se ejecutan como modulo de python, sino se usara el pip del python incluido en el path.`*
 
 >si se desea conocer mas sobre el uso del gestor de paquetes se puede visitar su enlace : [**pip**](https://pypi.org/project/pip/)
 
