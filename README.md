@@ -63,6 +63,8 @@ b'hello'|QRCODE
 y genera 2 archivos de nombre : `hello.png` y `hello.txt` con el texto y el codigo Qr generados
 
 ### **notas relevantes**:
-`ppyqrcode_example.py` generara una imagen similar a ![famous-joke.png](qr_id/famous-joke.png?raw=true)
+`ppyqrcode_example.py` generara una imagen similar a :
+
+![famous-joke.png](qr_id/famous-joke.png?raw=true)
 
 pero su codigo imagen puede cambiar si en el script se modifica el texto deseado, el script mas avanzado tambien genera imagenes 
