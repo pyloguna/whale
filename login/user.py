@@ -14,7 +14,7 @@ class User(UserMixin):
     def get(user_id):
         db = get_db()
         user = db.execute(
-            "SELECT * FROM user WHERE id = ?", (user_id,)
+            "SELECT * FROM usuario WHERE id = ?", (user_id,)
         ).fetchone()
         if not user:
             return None
@@ -28,7 +28,7 @@ class User(UserMixin):
     def create(id_, name, email, profile_pic):
         db = get_db()
         db.execute(
-            "INSERT INTO user (id, name, email, profile_pic)"
+            "INSERT INTO user (id, nombre, email, foto_perfil)"
             " VALUES (?, ?, ?, ?)",
             (id_, name, email, profile_pic),
         )
