@@ -1,2 +1,7 @@
-#ignorar archivos generados por VCS (Visual Studio Code)
-.vscode
+#ignorar archivos generados por un IDE
+# VSC (Visual Studio Code)
+/.vscode
+# VS (Visual Studio)
+/.vs
+# Intellij idea (JetBrains)
+/.idea
