@@ -1,0 +1,5 @@
+#no hacer tracking del cache generado por python
+/__pycache__
+
+#no enviar informacion de la base de datos
+sqlite_db
