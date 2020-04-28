@@ -28,7 +28,7 @@ class User(UserMixin):
     def create(id_, name, email, profile_pic):
         db = get_db()
         db.execute(
-            "INSERT INTO user (id, nombre, email, foto_perfil)"
+            "INSERT INTO usuario (id, nombre, email, foto_perfil)"
             " VALUES (?, ?, ?, ?)",
             (id_, name, email, profile_pic),
         )
