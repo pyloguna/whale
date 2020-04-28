@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>
+          {% if nombre %}
+          {{nombre}}
+          {% endif %}
+      </title>
+  </head>
+  <body>
+      {% if correo %}
+      <div>
+        <a>{{correo}}</a>
+      </div>
+      
+      {% endif %}
+      {% if imagen %}
+      <div>
+        <img src="{{imagen}}" alt="Google profile pic"></img>
+      </div>
+      {% endif %}
+      <div>
+        <button onclick="location.href='/logout'">Cerrar Sesion</button>
+      </div>
+      
+      
+  </body>
+</html>
