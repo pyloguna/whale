@@ -1,0 +1,16 @@
+.radio {
+    display: flex;
+}
+.radio label{
+    margin: 5px;
+}
+.radio label input[type="radio"] {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2px;
+    border: 0px;
+    width: 100%;
+    height:1em;
+}

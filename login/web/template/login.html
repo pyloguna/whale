@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" href="/css/login-dark.css">
+    <link rel="stylesheet" href="/css/dark-style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Hind&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/js/login-efectos.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="login-form">
-      <h6>Iniciar sesion</h6>
+        <h6>Iniciar sesion</h6>
 
-      <form action="login">
-        <div class="textbox">
-          <input type="text" placeholder="Identificador de Usuario">
-          <span class="check-message hidden">Requerido</span>
-        </div>
+        <form action="login" method="POST">
+            <div class="campo-entrada">
+                <input type="text" id="cedula" name="usuario" placeholder=" " required>
+                <label for="cedula">Cedula</label>
+            </div>
 
-        <div class="textbox">
-          <input type="password" placeholder="Contraseña">
-          <span class="check-message hidden">Requerido</span>
-        </div>
+            <div class="campo-entrada">
+                <input type="password" id="pass" name="pass" placeholder=" " required>
+                <label for="pass">Contraseña</label>
+            </div>
 
-        <div class="opciones">
-          <label class="remember-me">
-            <span class="checkbox">
-              <input type="checkbox">
-              <span class="checked"></span>
-            </span>
-            <a>Recordarme</a>
-          </label>
-
-          <a href="#">Olvide mi Contraseña</a>
-        </div>
-        
-        <input type="submit" value="Iniciar Sesion" class="login-btn" disabled>
-        <button class="google-login" formaction="/google-login">
-          Iniciar sesion con google
-        </button>
-      </form>
+            <button class ="submit">Iniciar Sesion</button>
+            
+        </form>
+        <form>
+            <button class="submit" formaction="/google-login">
+                Iniciar sesion con google
+            </button>
+        </form>
 
     </div>
 
-    
-  </body>
+
+</body>
+
 </html>
