@@ -1,0 +1,2 @@
+#ignorar archivos generados por VCS (Visual Studio Code)
+.vscode
