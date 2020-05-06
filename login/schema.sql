@@ -9,3 +9,12 @@ create table credenciales(
 	id text primary key,
 	pass text not null
 );
+
+create table gcreds(
+    openid text primary key,
+    id text not null,
+    CONSTRAINT FK_gcreds_id
+        FOREIGN KEY (id)
+        REFERENCES cliente(id)
+);
+

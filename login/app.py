@@ -96,8 +96,16 @@ def google_login():
     return redirect(request_uri)
 
 
+@app.route("/login", methods = ["POST"])
+def auth_callback():
+    correo = request.form.get("usuario")
+    user = User.get(correo)
+    login_user(user)
+    return redirect(url_for("index"))
+
+
 @app.route("/google-login/callback")
-def callback():
+def gauth_callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
 
@@ -143,13 +151,10 @@ def callback():
 
     # Create a user in our db with the information provided
     # by Google
-    user = User(
-        id_=unique_id, name=users_name, email=users_email, profile_pic=picture
-    )
-
     # Doesn't exist? Add to database
-    if not User.get(unique_id):
-        User.create(unique_id, users_name, users_email, picture)
+    if not User.get(unique_id, auth_type="gauth"):
+        User.create(unique_id, users_name, users_email, picture, auth_type="gauth")
+    user = User.get(unique_id, auth_type="gauth")
 
     # Begin user session by logging the user in
     login_user(user)
