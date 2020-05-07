@@ -24,6 +24,7 @@ import requests
 # Internal imports
 from db import init_db_command
 from user import User
+from credential_manager import CredentialManager
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -96,11 +97,13 @@ def google_login():
     return redirect(request_uri)
 
 
-@app.route("/login", methods = ["POST"])
+@app.route("/login", methods=["POST"])
 def auth_callback():
     correo = request.form.get("usuario")
+    password = request.form.get("pass")
     user = User.get(correo)
-    login_user(user)
+    if user and CredentialManager.auth(user, password=password):
+        login_user(user)
     return redirect(url_for("index"))
 
 
