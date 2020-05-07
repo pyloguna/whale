@@ -4,7 +4,7 @@ import os
 import sqlite3
 
 # Third party libraries
-from flask import(
+from flask import (
     Flask,
     redirect,
     request,
