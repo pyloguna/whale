@@ -13,14 +13,14 @@
       <div>
         <a>{{correo}}</a>
       </div>
-      
+      <div>
       {% endif %}
       {% if imagen %}
-      <div>
         <img src="{{imagen}}" alt="Google profile pic"></img>
-      </div>
+      {% else %}
+      <img src="/images/profile-default.png" alt="Google profile pic"></img>
       {% endif %}
-      <div>
+      </div>
         <button onclick="location.href='/logout'">Cerrar Sesion</button>
       </div>
       

@@ -13,19 +13,24 @@
     <div class="login-form formulario">
         <h6>Iniciar sesion</h6>
 
-        <form action="login" method="POST">
+        <form id="form-login" action="login" method="POST">
+
             <div class="campo-entrada">
-                <input type="text" id="usuario" name="usuario" placeholder=" " required>
+                <input type="text" id="usuario" name="usuario" placeholder=" " {% if correo %} value="{{correo}}"
+                    {% endif %} required>
                 <label for="usuario">Usuario</label>
             </div>
 
             <div class="campo-entrada">
-                <input type="password" id="pass" name="pass" placeholder=" " required>
+                <input type="password" id="pass" name="pass" placeholder=" " {% if password %} value="{{password}}"
+                    {% endif %} required>
                 <label for="pass">Contraseña</label>
             </div>
 
-            <button class ="submit">Iniciar Sesion</button>
-            
+            <button class="submit">Iniciar Sesion</button>
+            <button class="submit" id="registrar" formaction="/registro">Registrarse</button>
+
+
         </form>
         <form>
             <button class="submit" formaction="/google-login">
@@ -34,8 +39,32 @@
         </form>
 
     </div>
+    <script>
+        var nombre = document.getElementById("nombre")
+        document.getElementById("registrar").addEventListener("click", function (event) {
+            if (!nombre) {
+                nombre = document.createElement("div");
+                var campo = document.createElement("input");
+                var etiqueta = document.createElement("label");
+                nombre.className ="campo-entrada";
+                campo.type = "text";
+                campo.id = "nombre";
+                campo.placeholder = " ";
+                campo.name = "nombre";
+                {% if nombre %}
+                campo.value = "{{nombre}}"
+                {% endif %}
+                campo.required = true;
+                etiqueta.htmlfor = campo;
+                etiqueta.innerText = "Nombre Completo"; 
+                nombre.appendChild(campo);
+                nombre.appendChild(etiqueta);
+                document.getElementById("form-login").prepend(nombre);
+                event.preventDefault()
+            }
 
-
+        });
+    </script>
 </body>
 
 </html>
