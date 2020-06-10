@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/css/dark-style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="login-form formulario">
+        <h6>Iniciar sesion</h6>
+
+        <form action="login" method="POST">
+            <div class="campo-entrada">
+                <input type="text" id="usuario" name="usuario" placeholder=" " required>
+                <label for="usuario">Usuario</label>
+            </div>
+
+            <div class="campo-entrada">
+                <input type="password" id="pass" name="pass" placeholder=" " required>
+                <label for="pass">Contraseña</label>
+            </div>
+
+            <button class ="submit">Iniciar Sesion</button>
+            
+        </form>
+        <form>
+            <button class="submit" formaction="/google-login">
+                Iniciar sesion con google
+            </button>
+        </form>
+
+    </div>
+
+
+</body>
+
+</html>

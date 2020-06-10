@@ -1,0 +1,49 @@
+@import "otros/header.css";
+@import "otros/footer.css";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "hind", sans-serif;
+    text-decoration: none;
+}
+
+
+html, body {
+    height: 100%;
+}
+
+
+body{
+    background: #121212;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.contenido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+  
+  .login-form{
+    width: 470px;
+    background: #202020;
+    padding: 30px 60px;
+  }
+  
+  
+  .login-form h6{
+    color: #f1f1f1;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
