@@ -76,8 +76,10 @@ Si todo va bien, notara una salida como esta:
 ```
 
 # Notas Importantes
-La pagina registra los usuarios mediante google, por lo tanto sin un cliente y secreto oauth2
-no se registran en la base de datos, aunque se pueden agregar, 
-tambien una vez registrados su contraseña por defecto es 1234, 
-y el email es el mismo usado en el login de google.  
+
+## Autenticacion OAuth2 con Google
+Para el soporte de login mediante google se requiere en las variables de entorno GOOGLE_CLIENT_ID y GOOGLE_CLIENT_SECRET
+Sin un cliente y secreto oauth2, no se registran en la base de datos ni podran autenticarse los usuarios mediante google
+aunque se pueden agregar, tambien una vez registrados su contraseña por defecto es 1234, 
+y el email es el mismo usado en el login de google, aunque pueden seguir usuando el login de google si así lo desean.  
 para mas información ver la [Documentacion de Google](https://developers.google.com/identity/protocols/oauth2 "Oauth2 Google") 
