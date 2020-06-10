@@ -165,6 +165,19 @@ def gauth_callback():
     # Send user back to homepage
     return redirect(url_for("index"))
 
+@app.route("/registro", methods=["POST"])
+def registro():
+    correo = request.form.get("usuario")
+    password = request.form.get("pass")
+    nombre = request.form.get("nombre")
+    if not User.get(correo):
+        User.create(correo, nombre, correo, "")
+
+    return render_template("login.html",
+        correo = correo,
+        password = password,
+        nombre = nombre
+    )
 
 @app.route("/logout")
 @login_required
@@ -178,4 +191,4 @@ def get_google_provider_cfg():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", debug=True)
+    app.run(host = "0.0.0.0", port = 443, ssl_context="adhoc", debug=True)
