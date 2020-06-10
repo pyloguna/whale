@@ -10,7 +10,7 @@
      * [Configurar PyCharm](#configurando-pycharm "guia de pycharm") (opcional)
    + [Instalar dependencias](#instalar-dependencias "instalando dependencias")
  + [Uso de los Scripts](#ejecutar-los-scripts "ir a guia uso")
- + [notas adicionales](#notas-relevantes "ver las notas adicionales")
+ + [notas adicionales](#notas-importantes "ver las notas adicionales")
 
 
 # Requisitos
@@ -75,3 +75,9 @@ Si todo va bien, notara una salida como esta:
  * Running on https://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
+# Notas Importantes
+La pagina registra los usuarios mediante google, por lo tanto sin un cliente y secreto oauth2
+no se registran en la base de datos, aunque se pueden agregar, 
+tambien una vez registrados su contraseña por defecto es 1234, 
+y el email es el mismo usado en el login de google.  
+para mas información ver la [Documentacion de Google](https://developers.google.com/identity/protocols/oauth2 "Oauth2 Google") 
