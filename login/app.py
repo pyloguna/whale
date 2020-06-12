@@ -110,14 +110,14 @@ def auth_callback():
     password = request.form.get("pass")
     user = User.get(correo)
     if user and CredentialManager.auth(user, password=password):
-        login_user(user)
+        login_user(user, remember=True)
     return redirect(url_for("index"))
 
 @app.route("/login/otp/<string:usuario>/<string:otp>")
 def auth_otp_callback(usuario, otp):
     user = User.get(usuario)
     if user and CredentialManager.auth(user, otp=otp, auth_type="otp"):
-        login_user(user)
+        login_user(user, remember=True)
     return redirect(url_for("index"))
 
 @app.route("/google-login/callback")
@@ -173,7 +173,7 @@ def gauth_callback():
     user = User.get(unique_id, auth_type="gauth")
 
     # Begin user session by logging the user in
-    login_user(user)
+    login_user(user, remember=True)
 
     # Send user back to homepage
     return redirect(url_for("index"))
