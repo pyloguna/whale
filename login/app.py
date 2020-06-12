@@ -2,6 +2,8 @@
 import json
 import os
 import sqlite3
+import qrcode
+import io
 
 # Third party libraries
 from flask import (
@@ -9,7 +11,9 @@ from flask import (
     redirect,
     request,
     url_for,
-    render_template
+    render_template,
+    send_file,
+    session
 )
 from flask_login import (
     LoginManager,
@@ -18,6 +22,7 @@ from flask_login import (
     login_user,
     logout_user
 )
+
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 
@@ -32,6 +37,8 @@ GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
+dominio = os.environ.get("app_domain", "")
+
 
 # Flask app setup
 app = Flask(__name__,
@@ -106,6 +113,12 @@ def auth_callback():
         login_user(user)
     return redirect(url_for("index"))
 
+@app.route("/login/otp/<string:usuario>/<string:otp>")
+def auth_otp_callback(usuario, otp):
+    user = User.get(usuario)
+    if user and CredentialManager.auth(user, otp=otp, auth_type="otp"):
+        login_user(user)
+    return redirect(url_for("index"))
 
 @app.route("/google-login/callback")
 def gauth_callback():
@@ -185,9 +198,28 @@ def logout():
     logout_user()
     return redirect(url_for("index"))
 
-
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
+
+
+@app.route('/qr')
+@login_required
+def qr():
+    otp_code = CredentialManager.get_otp(current_user)
+    qr_gen = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4)
+    qr_gen.add_data("https://" + dominio + "/login/otp/"+current_user.id+"/" + otp_code.now())
+    qr_gen.make(fit=True)
+    qr_img = qr_gen.make_image()
+    img = io.BytesIO()
+    qr_img.save(img, format="PNG")
+    img.seek(0)
+
+    return send_file(img, mimetype="image/png")
+
 
 
 if __name__ == "__main__":
