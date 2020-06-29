@@ -7,7 +7,8 @@ CREATE TABLE usuario (
 
 create table credenciales(
 	id text primary key,
-	pass text not null
+	pass text not null,
+	otpkey text not null
 );
 
 create table gcreds(

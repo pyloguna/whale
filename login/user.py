@@ -1,7 +1,9 @@
 from flask_login import UserMixin
-
+from os import urandom
 from db import get_db
+import pyotp
 
+temp_user_pool = []
 
 class User(UserMixin):
     def __init__(self, id_, name, email, profile_pic):
@@ -28,11 +30,15 @@ class User(UserMixin):
             ).fetchone()
             if user_id:
                 user = User.get(user_id[0])
+        elif auth_type == "otp":
+            user_id = temp_user_pool.pop(user_id, None)
+            return User.get(user_id)
         return user
 
     @staticmethod
     def create(id_, name, email, profile_pic, auth_type="basic"):
         db = get_db()
+        otpkey = pyotp.random_base32()
         if auth_type == "basic":
             db.execute(
                 "INSERT INTO usuario (id, nombre, email, foto_perfil)"
@@ -40,9 +46,9 @@ class User(UserMixin):
                 (id_, name, email, profile_pic),
             )
             db.execute(
-                "INSERT INTO credenciales (id, pass)"
-                " VALUES (?, ?)",
-                (id_, "1234"),
+                "INSERT INTO credenciales (id, pass, otpkey)"
+                " VALUES (?, ?, ?)",
+                (id_, "1234", otpkey),
             )
 
         elif auth_type == "gauth":
@@ -57,9 +63,9 @@ class User(UserMixin):
                 (id_, email),
             )
             db.execute(
-                "INSERT INTO credenciales (id, pass)"
-                " VALUES (?, ?)",
-                (email, "1234"),
+                "INSERT INTO credenciales (id, pass, otpkey)"
+                " VALUES (?, ?, ?)",
+                (email, "1234", otpkey),
             )
 
         db.commit()

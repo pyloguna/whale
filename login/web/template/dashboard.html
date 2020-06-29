@@ -7,6 +7,7 @@
           {{nombre}}
           {% endif %}
       </title>
+      <script src="/js/otp_upd.js"></script>
   </head>
   <body>
       {% if correo %}
@@ -16,10 +17,11 @@
       <div>
       {% endif %}
       {% if imagen %}
-        <img src="{{imagen}}" alt="Google profile pic"></img>
+        <img src="{{imagen}}" alt="Google profile pic">
       {% else %}
-      <img src="/images/profile-default.png" alt="Google profile pic"></img>
+      <img src="/images/profile-default.png" alt="Google profile pic">
       {% endif %}
+      <img id="hotp_img" src="/qr">
       </div>
         <button onclick="location.href='/logout'">Cerrar Sesion</button>
       </div>
