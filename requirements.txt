@@ -1,4 +1,4 @@
-click
+click~=7.1.2
 pillow
 mysql-connector
 requests==2.21.0
@@ -6,6 +6,7 @@ Flask==1.0.2
 oauthlib==3.0.1
 pyOpenSSL==19.0.0
 Flask-Login==0.4.1
-pyotp
-pyqrcode
+pyotp~=2.3.0
+pyqrcode~=1.2.1
 pypng
+qrcode~=6.1
