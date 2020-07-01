@@ -108,8 +108,11 @@ def auth_callback():
     correo = request.form.get("usuario")
     password = request.form.get("pass")
     user = User.get(correo)
-    if user and CredentialManager.auth(user, password=password):
-        login_user(user, remember=True)
+    if user:
+        if CredentialManager.auth(user, password=password):
+            login_user(user, remember=True)
+        elif CredentialManager.auth(user, otp=password, auth_type="otp"):
+            login_user(user, remember=True)
     return redirect(url_for("index"))
 
 
@@ -216,6 +219,25 @@ def qr():
         box_size=10,
         border=4)
     qr_gen.add_data("https://" + dominio + "/login/otp/" + current_user.id + "/" + otp_code.now())
+    qr_gen.make(fit=True)
+    qr_img = qr_gen.make_image()
+    img = io.BytesIO()
+    qr_img.save(img, format="PNG")
+    img.seek(0)
+
+    return send_file(img, mimetype="image/png")
+
+
+@app.route('/qr/sync')
+@login_required
+def qr_secret():
+    otp_secret = CredentialManager.get_otp_sync(current_user, dominio)
+    qr_gen = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4)
+    qr_gen.add_data(otp_secret)
     qr_gen.make(fit=True)
     qr_img = qr_gen.make_image()
     img = io.BytesIO()
