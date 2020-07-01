@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-      <meta charset="utf-8">
-      <title>
-          {% if nombre %}
-          {{nombre}}
-          {% endif %}
-      </title>
-      <script src="/js/otp_upd.js"></script>
-  </head>
-  <body>
-      {% if correo %}
-      <div>
-        <a>{{correo}}</a>
-      </div>
-      <div>
-      {% endif %}
-      {% if imagen %}
-        <img src="{{imagen}}" alt="Google profile pic">
-      {% else %}
-      <img src="/images/profile-default.png" alt="Google profile pic">
-      {% endif %}
-      <img id="hotp_img" src="/qr">
-      </div>
-        <button onclick="location.href='/logout'">Cerrar Sesion</button>
-      </div>
-      
-      
-  </body>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% if nombre %}
+            {{ nombre }}
+        {% endif %}
+    </title>
+    <script src="/js/otp_upd.js"></script>
+</head>
+<body>
+<div>
+    {% if correo %}
+        <div>
+            <a>{{ correo }}</a>
+        </div>
+        <div>
+    {% endif %}
+    {% if imagen %}
+        <img src="{{ imagen }}" alt="Google profile pic">
+    {% else %}
+        <img src="/images/profile-default.png" alt="Google profile pic">
+    {% endif %}
+    <img id="hotp_img" src="/qr">
+    </div>
+    <button onclick="location.href='/logout'">Cerrar Sesion</button>
+</div>
+
+
+</body>
 </html>

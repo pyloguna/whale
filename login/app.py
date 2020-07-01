@@ -12,8 +12,7 @@ from flask import (
     request,
     url_for,
     render_template,
-    send_file,
-    session
+    send_file
 )
 from flask_login import (
     LoginManager,
@@ -38,7 +37,6 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 dominio = os.environ.get("app_domain", "")
-
 
 # Flask app setup
 app = Flask(__name__,
@@ -70,6 +68,7 @@ except sqlite3.OperationalError:
 # OAuth2 client setup
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
+
 # Flask-Login helper to retrieve a user from our db
 @login_manager.user_loader
 def load_user(user_id):
@@ -79,10 +78,10 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return render_template( "dashboard.html",
-                                nombre=current_user.name,
-                                correo=current_user.email,
-                                imagen=current_user.profile_pic
+        return render_template("dashboard.html",
+                               nombre=current_user.name,
+                               correo=current_user.email,
+                               imagen=current_user.profile_pic
                                )
     else:
         return render_template("login.html")
@@ -113,12 +112,14 @@ def auth_callback():
         login_user(user, remember=True)
     return redirect(url_for("index"))
 
+
 @app.route("/login/otp/<string:usuario>/<string:otp>")
 def auth_otp_callback(usuario, otp):
     user = User.get(usuario)
     if user and CredentialManager.auth(user, otp=otp, auth_type="otp"):
         login_user(user, remember=True)
     return redirect(url_for("index"))
+
 
 @app.route("/google-login/callback")
 def gauth_callback():
@@ -178,6 +179,7 @@ def gauth_callback():
     # Send user back to homepage
     return redirect(url_for("index"))
 
+
 @app.route("/registro", methods=["POST"])
 def registro():
     correo = request.form.get("usuario")
@@ -187,16 +189,18 @@ def registro():
         User.create(correo, nombre, correo, "")
 
     return render_template("login.html",
-        correo = correo,
-        password = password,
-        nombre = nombre
-    )
+                           correo=correo,
+                           password=password,
+                           nombre=nombre
+                           )
+
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("index"))
+
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
@@ -211,7 +215,7 @@ def qr():
         error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=10,
         border=4)
-    qr_gen.add_data("https://" + dominio + "/login/otp/"+current_user.id+"/" + otp_code.now())
+    qr_gen.add_data("https://" + dominio + "/login/otp/" + current_user.id + "/" + otp_code.now())
     qr_gen.make(fit=True)
     qr_img = qr_gen.make_image()
     img = io.BytesIO()
@@ -221,6 +225,5 @@ def qr():
     return send_file(img, mimetype="image/png")
 
 
-
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 443, ssl_context="adhoc", debug=True)
+    app.run(host="0.0.0.0", port=443, ssl_context="adhoc", debug=True)
