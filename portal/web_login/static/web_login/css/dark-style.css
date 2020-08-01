@@ -1,0 +1,22 @@
+@import "componentes/checkbox.css";
+@import "componentes/button.css";
+@import "componentes/textbox.css";
+@import "componentes/div.css";
+@import "componentes/formulario.css";
+@import "componentes/select.css";
+@import "componentes/radio.css";
+@import "componentes/campo.css";
+@import "componentes/tabla.css";
+@import "componentes/fecha.css";
+
+.contenido h6,
+h1,
+label {
+    color: #f1f1f1;
+}
+
+.contenido h6 {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
