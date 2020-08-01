@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views import generic, TemplateView
+from django.views.generic.base import TemplateView
 
 class InicioView(TemplateView):
-    template_name = "web_login/inicio.html"
+    template_name = "web login/inicio.html"
