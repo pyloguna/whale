@@ -14,7 +14,7 @@
     <h6>Iniciar sesion</h6>
 
     <form id="form-login" action="/login" method="POST">
-
+        {% csrf_token %}
         <div class="campo-entrada">
             <input type="text" id="usuario" name="usuario" placeholder=" " {% if correo %} value="{{ correo }}"
             {% endif %} required>
@@ -40,7 +40,8 @@
 
 </div>
 <script>
-    let nombre = document.getElementById("nombre")
+    let nombre = document.getElementById("nombre");
+    let correo = document.getElementById("correo")
     document.getElementById("registrar").addEventListener("click", function (event) {
         if (!nombre) {
             nombre = document.createElement("div");
@@ -62,6 +63,27 @@
             document.getElementById("form-login").prepend(nombre);
             event.preventDefault()
         }
+        if (!correo) {
+            correo = document.createElement("div");
+            let campo = document.createElement("input");
+            let etiqueta = document.createElement("label");
+            correo.className = "campo-entrada";
+            campo.type = "email";
+            campo.id = "correo";
+            campo.placeholder = " ";
+            campo.name = "correo";
+            {% if correo %}
+                campo.value = "{{correo}}"
+            {% endif %}
+            campo.required = true;
+            etiqueta.htmlfor = campo;
+            etiqueta.innerText = "Correo Electronico";
+            correo.appendChild(campo);
+            correo.appendChild(etiqueta);
+            document.getElementById("form-login").prepend(correo);
+            event.preventDefault()
+        }
+
 
     });
 </script>
