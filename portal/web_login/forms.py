@@ -1,15 +1,11 @@
 from django import forms
 
 CAMPOS_LOGIN_MAPEO ={
-    'correo': 'usuario',
-    'password':'pass'
-}
-CAMPOS_REGISTRO_MAPEO ={
     'password':'pass'
 }
 
 class BasicLoginForm(forms.Form):
-    correo = forms.EmailField()
+    usuario = forms.CharField()
     password = forms.CharField()
     def add_prefix(self, field_name):
         field_name = CAMPOS_LOGIN_MAPEO.get(field_name, field_name)
@@ -21,5 +17,5 @@ class RegistroForm(forms.Form):
     nombre = forms.CharField()
     password = forms.CharField()
     def add_prefix(self, field_name):
-        field_name = CAMPOS_REGISTRO_MAPEO.get(field_name, field_name)
+        field_name = CAMPOS_LOGIN_MAPEO.get(field_name, field_name)
         return super(RegistroForm, self).add_prefix(field_name)
