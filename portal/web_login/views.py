@@ -22,7 +22,7 @@ class BasicLoginView(TemplateView):
         form = BasicLoginForm(request.POST)
         if form.is_valid():
             usuario = form.cleaned_data.get("usuario")
-            password = form.cleaned_data.get("pass")
+            password = form.cleaned_data.get("password")
             creds = authenticate(request, username = usuario, password = password)
             if creds:
                 login(request, creds)
