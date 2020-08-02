@@ -41,13 +41,13 @@ class RegistroView(View):
     def post(self, request):
         form = RegistroForm(request.POST)
         if form.is_valid():
-            usuario = form.cleaned_data.get()
-            correo = form.cleaned_data.get()
-            nombre = form.cleaned_data.get()
-            password = form.cleaned_data.get()
+            usuario = form.cleaned_data.get("usuario")
+            correo = form.cleaned_data.get("correo")
+            nombre = form.cleaned_data.get("nombre")
+            password = form.cleaned_data.get("password")
             if self.registrar(usuario,correo,nombre,password):
                 return redirect('web_login:login')
-        return redirect('web_login:registro')
+        return redirect('web_login:login')
 
 class LogoutView(View):
     def get(self, request):
