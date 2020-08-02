@@ -64,3 +64,19 @@
 input::-webkit-calendar-picker-indicator {
     background-color: inherit;
 }
+
+
+/* correcciones especificas de webkit */
+
+.campo-entrada input:-webkit-autofill {
+    box-shadow: 0 0 0 50px #2b2b2b inset;
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 50px #1f2a42e5 inset;
+}
+
+.campo-entrada input:-webkit-autofill~label {
+    left: 5px;
+    top: -10px;
+    padding: 0 5px;
+    border-radius: 20px;
+}
