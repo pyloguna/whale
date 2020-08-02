@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views import View
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -11,8 +12,7 @@ from .forms import BasicLoginForm, RegistroForm
 class InicioView(TemplateView):
     template_name = "web_login/inicio.html"
 
-@login_required
-class DashBoardView(TemplateView):
+class DashBoardView(LoginRequiredMixin, TemplateView):
     template_name = "web_login/dashboard.html"
 
 class BasicLoginView(TemplateView):
