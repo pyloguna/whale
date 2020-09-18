@@ -8,6 +8,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
+    environment:
+      - Django_Docker_env=1
     build: .
     command: python portal/manage.py runserver 0.0.0.0:8000
     volumes:
