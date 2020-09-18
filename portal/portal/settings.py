@@ -74,8 +74,15 @@ WSGI_APPLICATION = 'portal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+# Base de datos local de desarrollo
+db_desc = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+}
+
+
+if os.get('Django_Docker_env') is not None:
+    db_desc = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
@@ -83,6 +90,10 @@ DATABASES = {
         'HOST': 'db',
         'PORT': 5432,
     }
+
+
+DATABASES = {
+    'default': db_desc
 }
 
 
