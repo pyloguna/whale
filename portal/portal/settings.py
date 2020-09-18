@@ -81,7 +81,7 @@ db_desc = {
 }
 
 
-if os.get('Django_Docker_env') is not None:
+if os.getenv('DJANGO_DOCKER_ENV') is not None:
     db_desc = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
