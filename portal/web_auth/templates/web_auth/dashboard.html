@@ -8,7 +8,7 @@
             {{ nombre }}
         {% endif %}
     </title>
-    <script src="{% static 'web_login/js/otp_upd.js' %}"></script>
+    <script src="{% static 'web_auth/js/otp_upd.js' %}"></script>
     <style>
         #foto_perfil {
             max-width: 100px;
@@ -26,7 +26,7 @@
     {% if imagen %}
         <img id="foto_perfil" src="{{ imagen }}" alt="Google profile pic">
     {% else %}
-        <img id="foto_perfil" src="{% static 'web_login/images/profile-default.png' %}" alt="Google profile pic">
+        <img id="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="Google profile pic">
     {% endif %}
     <button onclick="location.href='/logout'">Cerrar Sesion</button>
     <hr>
@@ -51,11 +51,11 @@
     </label>
     <hr>
     <label>
-        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=es_CR">Android </a>
+        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.web_authenticator2&hl=es_CR">Android </a>
     </label>
     <hr>
     <label>
-        <a href="https://apps.apple.com/es/app/google-authenticator/id388497605">IOS</a>
+        <a href="https://apps.apple.com/es/app/google-web_authenticator/id388497605">IOS</a>
     </label>
     <a href></a>
     </div>
