@@ -71,28 +71,43 @@
     </form>
     <hr>
     <h2>Lista de dispositivos</h2>
-    <table>
-        <thead>
+    {% if otp_devices.count == 0 %}
+        <h3>No hay dispositos actualmente</h3>
+    {% else %}
+        <table id="otp_devices">
+            <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Codigo Sync</th>
                 <th>Codigo Actual</th>
+                <th>Eliminar</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
+
+
             {% for otp_device in otp_devices %}
                 <tr>
-                <td>{{otp_device.name}}</td>
+                    <td>{{ otp_device.name }}</td>
 
-                <td><img id="hotp_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
-                <td>{{otp_device.otp_key}}</td>
-            </tr>
+                    <td><img id="hotp_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
+                    <td>
+                        <img id="hotp_img" src="/otp/devices/{{ otp_device.otp_key }}/logincode" alt="codigo login">
+                    </td>
+                    <td>
+                        <form id="form-login" action="/otp/devices/{{ otp_device.name }}/remove" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+
+                </tr>
             {% endfor %}
 
 
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+    {% endif %}
 </div>
 <script>
     function refresh(node, tiempo) {

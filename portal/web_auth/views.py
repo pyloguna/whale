@@ -55,7 +55,7 @@ class OTPLoginView(View):
             HttpResponseServerError("Información Malformada")
 
 
-class OTPAddDeviceView(LoginRequiredMixin, View):
+class OTPManageDeviceView(LoginRequiredMixin, View):
     def post(self, request):
         form = AgregarOTPDeviceForm(request.POST)
         if form.is_valid():
@@ -66,7 +66,15 @@ class OTPAddDeviceView(LoginRequiredMixin, View):
         return redirect('web_auth:dashboard')
 
 
-class OTPDeviceView(LoginRequiredMixin, View):
+class OTPDeleteDeviceView(LoginRequiredMixin, View):
+    def post(self, request, otp_device):
+        otp_device = OTPDevice.objects.get(user=self.request.user.id, name=otp_device)
+        if otp_device is not None:
+            otp_device.delete()
+            return redirect('web_auth:dashboard')
+
+
+class OTPDeviceSecretView(LoginRequiredMixin, View):
     def get(self, request, otp_device):
         otp_device = OTPDevice.objects.get(user=self.request.user.id, name=otp_device)
         if otp_device is not None:
