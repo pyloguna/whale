@@ -24,9 +24,9 @@
         <div>
     {% endif %}
     {% if imagen %}
-        <img id="foto_perfil" src="{{ imagen }}" alt="Google profile pic">
+        <img id="foto_perfil" src="{{ imagen }}" alt="profile pic">
     {% else %}
-        <img id="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="Google profile pic">
+        <img id="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="profile pic">
     {% endif %}
     <button onclick="location.href='/logout'">Cerrar Sesion</button>
     <hr>
@@ -59,6 +59,16 @@
     </label>
     <a href></a>
     </div>
+    <form id="form-login" action="/otp/devices/register" method="POST">
+        <h2>Agregar un nuevo dispositivo</h2>
+        {% csrf_token %}
+        <label>
+            Nombre del Dispositivo:
+            <input type="text" id="otp_name" name="otp_name">
+            <button type="submit">Agregar nuevo dispositivo</button>
+        </label>
+
+    </form>
 
 </div>
 <script>

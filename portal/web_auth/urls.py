@@ -9,5 +9,6 @@ urlpatterns = [
     path('registro', views.RegistroView.as_view(), name='registro'),
     path('logout', views.LogoutView.as_view(), name='logout'),
     path('dashboard', views.DashBoardView.as_view(), name='dashboard'),
-    path('login/otp', views.OTPLoginView.as_view(), name='otpLogin')
+    path('login/otp', views.OTPLoginView.as_view(), name='otpLogin'),
+    path('otp/devices/register', views.OTPAddDeviceView.as_view(), name='otpDeviceAdd')
 ]

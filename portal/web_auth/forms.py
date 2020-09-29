@@ -23,3 +23,7 @@ class RegistroForm(forms.Form):
     def add_prefix(self, field_name):
         field_name = CAMPOS_LOGIN_MAPEO.get(field_name, field_name)
         return super(RegistroForm, self).add_prefix(field_name)
+
+
+class AgregarOTPDeviceForm(forms.Form):
+    otp_name = forms.CharField()

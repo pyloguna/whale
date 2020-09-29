@@ -6,7 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from .forms import BasicLoginForm, RegistroForm
+from .forms import BasicLoginForm, RegistroForm, AgregarOTPDeviceForm
+from .models import OTPDevice
 import json
 
 
@@ -44,6 +45,16 @@ class OTPLoginView(View):
         except KeyError:
             HttpResponseServerError("Información Malformada")
 
+
+class OTPAddDeviceView(LoginRequiredMixin, View):
+    def post(self, request):
+        form = AgregarOTPDeviceForm(request.POST)
+        if form.is_valid():
+            otp_name = form.cleaned_data.get("otp_name")
+            if not OTPDevice.objects.filter(name=otp_name).exists():
+                otp_device = OTPDevice.create(user=request.user.id, name=otp_name)
+                otp_device.save()
+        return redirect('web_auth:dashboard')
 
 class RegistroView(View):
     def registrar(self, usuario, correo, nombre, password):
