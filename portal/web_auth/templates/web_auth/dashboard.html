@@ -31,22 +31,6 @@
     <button onclick="location.href='/logout'">Cerrar Sesion</button>
     <hr>
     <label>
-        Codigo Login:
-    </label>
-    <hr>
-    <label>
-        <img id="hotp_img" src="/qr" alt="codigo login">
-    </label>
-    <hr>
-    <label>
-        Codigo Sync:
-    </label>
-    <hr>
-    <label>
-        <img id="hotp_img" src="/qr/sync" alt="codigo sync">
-    </label>
-    <hr>
-    <label>
         Para usar el Codigo Sync se recomienda El autenticador de google para
     </label>
     <hr>
@@ -92,7 +76,7 @@
 
                     <td><img id="hotp_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
                     <td>
-                        <img id="hotp_img" src="/otp/devices/{{ otp_device.otp_key }}/logincode" alt="codigo login">
+                        <img id="hotp_img" src="/otp/devices/{{ otp_device.name }}/logincode" alt="codigo login">
                     </td>
                     <td>
                         <form id="form-login" action="/otp/devices/{{ otp_device.name }}/remove" method="POST">
@@ -125,9 +109,16 @@
     }
 
     window.onload = function () {
-        let node = document.getElementById('hotp_img');
-        refresh(node, 15 * 1000);
+        let table = document.getElementById("otp_devices");
+        for (let i = 1, row; i < table.rows.length ; i++) {
+            row = table.rows[i];
+            let node = row.cells[2];
+            refresh(node, 15 * 1000);
+        }
+
     }
+
+
 </script>
 
 </body>

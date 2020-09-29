@@ -15,6 +15,21 @@ import json
 import qrcode
 
 
+def gen_qr_code(string):
+    qr_gen = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4)
+    qr_gen.add_data(string)
+    qr_gen.make(fit=True)
+    qr_img = qr_gen.make_image()
+    img = io.BytesIO()
+    qr_img.save(img, format="PNG")
+    img.seek(0)
+    return img
+
+
 class InicioView(TemplateView):
     template_name = "web_auth/inicio.html"
 
@@ -79,17 +94,23 @@ class OTPDeviceSecretView(LoginRequiredMixin, View):
         otp_device = OTPDevice.objects.get(user=self.request.user.id, name=otp_device)
         if otp_device is not None:
             otp_secret = otp_device.get_sync_code(self.request.user.email, request.META['HTTP_HOST'])
-            qr_gen = qrcode.QRCode(
-                version=1,
-                error_correction=qrcode.constants.ERROR_CORRECT_L,
-                box_size=10,
-                border=4)
-            qr_gen.add_data(otp_secret)
-            qr_gen.make(fit=True)
-            qr_img = qr_gen.make_image()
-            img = io.BytesIO()
-            qr_img.save(img, format="PNG")
-            img.seek(0)
+            img = gen_qr_code(otp_secret)
+            return HttpResponse(img.read(), content_type="image/png")
+        error_img = Image.new('RGBA', (1, 1), (0, 0, 0, 255))
+        response = HttpResponse(content_type="image/png")
+        error_img.save(response, "PNG")
+        return response
+
+
+class OTPLoginCodeView(LoginRequiredMixin, View):
+    def get(self, request, otp_device):
+        otp_device = OTPDevice.objects.get(user=self.request.user.id, name=otp_device)
+        if otp_device is not None:
+            otp_code = otp_device.gen_otp_code()
+
+            ruta = f"http{'s' if request.is_secure() else ''}:// {request.META['HTTP_HOST']}/"
+            ruta += f"{self.request.user.username}/{otp_code}"
+            img = gen_qr_code(ruta)
             return HttpResponse(img.read(), content_type="image/png")
         error_img = Image.new('RGBA', (1, 1), (0, 0, 0, 255))
         response = HttpResponse(content_type="image/png")

@@ -20,7 +20,7 @@ class OTPDevice(models.Model):
         return pyotp.TOTP(otp_secret).provisioning_uri(email, issuer_name=issuer)
 
     def gen_otp_code(self):
-        return pyotp.TOTP(self.otp_key)
+        return pyotp.TOTP(self.otp_key).now()
 
     def __str__(self):
         return f"{self.user}: {self.name}"
