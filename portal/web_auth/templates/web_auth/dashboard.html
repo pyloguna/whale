@@ -69,6 +69,29 @@
         </label>
 
     </form>
+    <hr>
+    <h2>Lista de dispositivos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Codigo Sync</th>
+                <th>Codigo Actual</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for otp_device in otp_devices %}
+                <tr>
+                <td>{{otp_device.name}}</td>
+
+                <td><img id="hotp_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
+                <td>{{otp_device.otp_key}}</td>
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
 
 </div>
 <script>

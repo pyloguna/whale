@@ -1,4 +1,7 @@
-from django.http import HttpResponseServerError
+import io
+
+from PIL import Image
+from django.http import HttpResponseServerError, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views import View
@@ -9,6 +12,7 @@ from django.urls import reverse
 from .forms import BasicLoginForm, RegistroForm, AgregarOTPDeviceForm
 from .models import OTPDevice
 import json
+import qrcode
 
 
 class InicioView(TemplateView):
@@ -17,6 +21,11 @@ class InicioView(TemplateView):
 
 class DashBoardView(LoginRequiredMixin, TemplateView):
     template_name = "web_auth/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['otp_devices'] = OTPDevice.objects.filter(user=self.request.user.id)
+        return context
 
 
 class BasicLoginView(TemplateView):
@@ -52,9 +61,33 @@ class OTPAddDeviceView(LoginRequiredMixin, View):
         if form.is_valid():
             otp_name = form.cleaned_data.get("otp_name")
             if not OTPDevice.objects.filter(name=otp_name).exists():
-                otp_device = OTPDevice.create(user=request.user.id, name=otp_name)
+                otp_device = OTPDevice.create(user=self.request.user.id, name=otp_name)
                 otp_device.save()
         return redirect('web_auth:dashboard')
+
+
+class OTPDeviceView(LoginRequiredMixin, View):
+    def get(self, request, otp_device):
+        otp_device = OTPDevice.objects.get(user=self.request.user.id, name=otp_device)
+        if otp_device is not None:
+            otp_secret = otp_device.get_sync_code(self.request.user.email, request.META['HTTP_HOST'])
+            qr_gen = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=10,
+                border=4)
+            qr_gen.add_data(otp_secret)
+            qr_gen.make(fit=True)
+            qr_img = qr_gen.make_image()
+            img = io.BytesIO()
+            qr_img.save(img, format="PNG")
+            img.seek(0)
+            return HttpResponse(img.read(), content_type="image/png")
+        error_img = Image.new('RGBA', (1, 1), (0, 0, 0, 255))
+        response = HttpResponse(content_type="image/png")
+        error_img.save(response, "PNG")
+        return response
+
 
 class RegistroView(View):
     def registrar(self, usuario, correo, nombre, password):

@@ -15,9 +15,9 @@ class OTPDevice(models.Model):
         totp = pyotp.TOTP(self.otp_key)
         return totp.verify(challenge)
 
-    def get_otp_sync(self, service_domain=''):
+    def get_sync_code(self,email, issuer=''):
         otp_secret = self.otp_key
-        return pyotp.TOTP(otp_secret).provisioning_uri(self.name.__str__(), issuer_name=service_domain)
+        return pyotp.TOTP(otp_secret).provisioning_uri(email, issuer_name=issuer)
 
     def gen_otp_code(self):
         return pyotp.TOTP(self.otp_key)
