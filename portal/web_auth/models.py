@@ -4,7 +4,7 @@ from django.db import models
 
 
 class OTPDevice(models.Model):
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
@@ -23,12 +23,12 @@ class OTPDevice(models.Model):
         return pyotp.TOTP(self.otp_key)
 
     def __str__(self):
-        return f"{self.user_id}: {self.name}"
+        return f"{self.user}: {self.name}"
 
     @classmethod
-    def create(cls, user_id, name):
+    def create(cls, user, name):
         otp_device = cls(
-            user_id=user_id,
+            user_id=user,
             otp_key=pyotp.random_base32(),
             name=name
         )
@@ -37,7 +37,7 @@ class OTPDevice(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user_id', 'device'],
-                name='qr_device_unique'
+                fields=['user', 'name'],
+                name='otp_device_name_unique'
             )
         ]
