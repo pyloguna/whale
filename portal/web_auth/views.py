@@ -11,7 +11,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from .forms import BasicLoginForm, RegistroForm, AgregarOTPDeviceForm
 from .models import OTPDevice
-import json
 import qrcode
 import base64
 
