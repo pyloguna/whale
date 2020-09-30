@@ -13,6 +13,7 @@ from .forms import BasicLoginForm, RegistroForm, AgregarOTPDeviceForm
 from .models import OTPDevice
 import json
 import qrcode
+import base64
 
 
 def gen_qr_code(string):
@@ -59,10 +60,10 @@ class BasicLoginView(TemplateView):
 
 
 class OTPLoginView(View):
-    def post(self, request):
-        json_data = json.loads(request.body)
+    def get(self, request, payload):
+        payload = base64.decodebytes(payload.encode('utf-8')).decode('utf-8').split(':')
         try:
-            credentials = authenticate(request, email=json_data['email'], challenge=json_data['challenge'])
+            credentials = authenticate(request, username=payload[0], challenge=payload[1])
             if credentials:
                 login(request, credentials)
                 return redirect(reverse('web_auth:dashboard'))
@@ -107,9 +108,10 @@ class OTPLoginCodeView(LoginRequiredMixin, View):
         otp_device = OTPDevice.objects.get(user=self.request.user.id, name=otp_device)
         if otp_device is not None:
             otp_code = otp_device.gen_otp_code()
-
-            ruta = f"http{'s' if request.is_secure() else ''}:// {request.META['HTTP_HOST']}/"
-            ruta += f"{self.request.user.username}/{otp_code}"
+            payload = base64.urlsafe_b64encode(f"{self.request.user.username}:{otp_code}"
+                                               .encode('utf-8')).decode('utf-8')
+            ruta = f"http{'s' if request.is_secure() else ''}://{request.META['HTTP_HOST']}/login/qrauth/"
+            ruta += payload
             img = gen_qr_code(ruta)
             return HttpResponse(img.read(), content_type="image/png")
         error_img = Image.new('RGBA', (1, 1), (0, 0, 0, 255))

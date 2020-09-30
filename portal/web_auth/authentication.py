@@ -5,13 +5,14 @@ from . import models
 
 
 class OTPAuthBackend(BaseBackend):
-    def authenticate(self, request, email=None, challenge=None):
+    def authenticate(self, request, username=None, challenge=None):
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(username=username)
             if user is not None:
-                otp_device = models.OTPDevice.objects.get(pk=user.id)
-                if otp_device is not None and otp_device.is_valid_code(challenge):
-                    return user
+                otp_devices = models.OTPDevice.objects.filter(user=user.id)
+                for otp_device in otp_devices:
+                    if otp_device is not None and otp_device.is_valid_code(challenge):
+                        return user
             return None
         except User.DoesNotExists:
             raise ValidationError("credenciales incorrectas")
