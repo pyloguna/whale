@@ -54,11 +54,12 @@
 
     </form>
     <hr>
-    <h2>Lista de dispositivos</h2>
+
     {% if otp_devices.count == 0 %}
         <h3>No hay dispositos actualmente</h3>
     {% else %}
         <table id="otp_devices">
+            <caption>Lista de dispositivos</caption>
             <thead>
             <tr>
                 <th>Nombre</th>
@@ -74,9 +75,9 @@
                 <tr>
                     <td>{{ otp_device.name }}</td>
 
-                    <td><img id="hotp_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
+                    <td><img id="sync_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
                     <td>
-                        <img id="hotp_img" src="/otp/devices/{{ otp_device.name }}/logincode" alt="codigo login">
+                        <img id="login_img" src="/otp/devices/{{ otp_device.name }}/logincode" alt="codigo login">
                     </td>
                     <td>
                         <form id="form-login" action="/otp/devices/{{ otp_device.name }}/remove" method="POST">
@@ -113,7 +114,7 @@
         for (let i = 1, row; i < table.rows.length ; i++) {
             row = table.rows[i];
             let node = row.cells[2];
-            refresh(node, 15 * 1000);
+            refresh(node.getElementsByTagName("img")[0], 15 * 1000);
         }
 
     }
