@@ -1,0 +1,14 @@
+div[class="erroneo"] {
+    padding: 10px;
+    margin: 10px;
+    background: #682f2fbe;
+    border: 3px solid #682f2fbe;
+    border-radius: 15px;
+}
+div[class="exitoso"] {
+    padding: 10px;
+    margin: 10px;
+    background: #1cbe2954;
+    border: 3px solid #1cbe2954;
+    border-radius: 15px;
+}

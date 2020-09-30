@@ -1,0 +1,4 @@
+#no guardar la base de datos
+db.sqlite3
+#no guardar el cache generado
+*.pyc
