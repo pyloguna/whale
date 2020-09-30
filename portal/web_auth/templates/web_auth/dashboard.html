@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% if nombre %}
+            {{ nombre }}
+        {% endif %}
+    </title>
+    <script src="{% static 'web_auth/js/otp_upd.js' %}"></script>
+    <style>
+        #foto_perfil {
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    {% if correo %}
+        <div>
+            <a>{{ correo }}</a>
+        </div>
+        <div>
+    {% endif %}
+    {% if imagen %}
+        <img id="foto_perfil" src="{{ imagen }}" alt="profile pic">
+    {% else %}
+        <img id="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="profile pic">
+    {% endif %}
+    <button onclick="location.href='/logout'">Cerrar Sesion</button>
+    <hr>
+    <label>
+        Para usar el Codigo Sync se recomienda El autenticador de google para
+    </label>
+    <hr>
+    <label>
+        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.web_authenticator2&hl=es_CR">Android </a>
+    </label>
+    <hr>
+    <label>
+        <a href="https://apps.apple.com/es/app/google-web_authenticator/id388497605">IOS</a>
+    </label>
+    <a href></a>
+    </div>
+    <form id="form-login" action="/otp/devices/register" method="POST">
+        <h2>Agregar un nuevo dispositivo</h2>
+        {% csrf_token %}
+        <label>
+            Nombre del Dispositivo:
+            <input type="text" id="otp_name" name="otp_name">
+            <button type="submit">Agregar nuevo dispositivo</button>
+        </label>
+
+    </form>
+    <hr>
+
+    {% if otp_devices.count == 0 %}
+        <h3>No hay dispositos actualmente</h3>
+    {% else %}
+        <table id="otp_devices">
+            <caption>Lista de dispositivos</caption>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Codigo Sync</th>
+                <th>Codigo Actual</th>
+                <th>Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            {% for otp_device in otp_devices %}
+                <tr>
+                    <td>{{ otp_device.name }}</td>
+
+                    <td><img id="sync_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
+                    <td>
+                        <img id="login_img" src="/otp/devices/{{ otp_device.name }}/logincode" alt="codigo login">
+                    </td>
+                    <td>
+                        <form id="form-login" action="/otp/devices/{{ otp_device.name }}/remove" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+<script>
+    function refresh(node, tiempo) {
+        (function startRefresh() {
+            let address;
+            if (node.src.indexOf('?') > -1)
+                address = node.src.split('?')[0];
+            else
+                address = node.src;
+            node.src = address + "?time=" + new Date().getTime();
+
+            setTimeout(startRefresh, tiempo);
+        })();
+
+    }
+
+    window.onload = function () {
+        let table = document.getElementById("otp_devices");
+        for (let i = 1, row; i < table.rows.length ; i++) {
+            row = table.rows[i];
+            let node = row.cells[2];
+            refresh(node.getElementsByTagName("img")[0], 15 * 1000);
+        }
+
+    }
+
+
+</script>
+
+</body>
+</html>
