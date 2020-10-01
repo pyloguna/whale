@@ -11,9 +11,7 @@ urlpatterns = [
     path('dashboard', views.DashBoardView.as_view(), name='dashboard'),
     path('login/qrauth/<str:payload>', views.OTPLoginView.as_view(), name='otpLogin'),
     path('otp/devices/register', views.OTPManageDeviceView.as_view(), name='otpDeviceAdd'),
-    path('otp/devices/<str:otp_device>/logincode', views.OTPLoginCodeView.as_view()),
-    path('otp/devices/<str:otp_device>/remove',
-         views.OTPDeleteDeviceView.as_view()),
-    path('otp/devices/<str:otp_device>/sync',
-         views.OTPDeviceSecretView.as_view())
+    path('otp/devices/<str:otp_device>/logincode', views.OTPLoginCodeView.as_view(), name='otpLoginCode'),
+    path('otp/devices/<str:otp_device>/remove', views.OTPDeleteDeviceView.as_view(), name='otpDeviceRemove'),
+    path('otp/devices/<str:otp_device>/sync', views.OTPDeviceSecretView.as_view(), name='otpSyncCode')
 ]
