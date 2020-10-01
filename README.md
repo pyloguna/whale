@@ -60,7 +60,7 @@ si el comando `pip` reporta errores de instalacion, puede que se requieran permi
 en una linea de comandos en el folder del proyecto realice las siguientes acciones:
 
 ```bash
-cd portal
+cd whale
 python manage.py migrate
 python manage.py runserver
 ```
