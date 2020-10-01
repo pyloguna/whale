@@ -109,15 +109,16 @@
 
     }
 
-    window.onload = function () {
-        let table = document.getElementById("otp_devices");
-        for (let i = 1, row; i < table.rows.length ; i++) {
-            row = table.rows[i];
-            let node = row.cells[2];
-            refresh(node.getElementsByTagName("img")[0], 15 * 1000);
+        window.onload = function () {
+            let table = document.getElementById("otp_devices");
+            if (table != null) {
+                for (let i = 1, row; i < table.rows.length; i++) {
+                    row = table.rows[i];
+                    let node = row.cells[2];
+                    refresh(node.getElementsByTagName("img")[0], 15 * 1000);
+                }
+            }
         }
-
-    }
 
 
 </script>
