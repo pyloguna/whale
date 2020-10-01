@@ -66,6 +66,7 @@ class OTPLoginView(View):
             if credentials:
                 login(request, credentials)
                 return redirect(reverse('web_auth:dashboard'))
+            return redirect(reverse('web_auth:login'))
         except KeyError:
             HttpResponseServerError("Información Malformada")
 
