@@ -27,9 +27,8 @@
             <label for="pass">Contraseña</label>
         </div>
 
-        <button class="submit">Iniciar Sesion</button>
+        <button class="submit" id="login">Iniciar Sesion</button>
         <button class="submit" id="registrar" formaction="/registro">Registrarse</button>
-
 
     </form>
     <form>
@@ -44,6 +43,7 @@
     let correo = document.getElementById("correo")
     document.getElementById("registrar").addEventListener("click", function (event) {
         if (!nombre) {
+            document.getElementById("login").style.display = 'none';
             nombre = document.createElement("div");
             let campo = document.createElement("input");
             let etiqueta = document.createElement("label");
