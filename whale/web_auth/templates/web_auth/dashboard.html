@@ -11,8 +11,11 @@
     </title>
     <script src="{% static 'web_auth/js/otp_upd.js' %}"></script>
     <style>
-        #foto_perfil {
+        .foto_perfil {
             max-width: 100px;
+        }
+        .qr{
+            max-width: 250px;
         }
     </style>
 </head>
@@ -26,9 +29,9 @@
         <div>
             {% endif %}
             {% if imagen %}
-            <img id="foto_perfil" src="{{ imagen }}" alt="profile pic">
+            <img class="foto_perfil" src="{{ imagen }}" alt="profile pic">
             {% else %}
-            <img id="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="profile pic">
+            <img class="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="profile pic">
             {% endif %}
             <button onclick="location.href='/logout'">Cerrar Sesion</button>
             <hr>
@@ -47,7 +50,7 @@
             </label>
             <a href></a>
         </div>
-        <form id="form-login" action="/otp/devices/register" method="POST">
+        <form id="form-login" action="{% url 'web_auth:otpDeviceAdd' %}" method="POST">
             <h2>Agregar un nuevo dispositivo</h2>
             {% csrf_token %}
             <label>
@@ -79,12 +82,12 @@
                 <tr>
                     <td>{{ otp_device.name }}</td>
 
-                    <td><img id="sync_img" src="/otp/devices/{{ otp_device.name }}/sync" alt="codigo sync"></td>
+                    <td><img class="qr" src="{% url 'web_auth:otpDeviceSyncCode' otp_device=otp_device.name %}" alt="codigo sync"></td>
                     <td>
-                        <img id="login_img" src="/otp/devices/{{ otp_device.name }}/logincode" alt="codigo login">
+                        <img class="qr" src="{% url 'web_auth:otpDeviceLoginCode' otp_device=otp_device.name %}" alt="codigo login">
                     </td>
                     <td>
-                        <form id="form-login" action="/otp/devices/{{ otp_device.name }}/remove" method="POST">
+                        <form action="{% url 'web_auth:otpDeviceRemove' otp_device=otp_device.name %}" method="POST">
                             {% csrf_token %}
                             <button type="submit">Eliminar</button>
                         </form>

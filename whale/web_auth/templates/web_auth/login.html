@@ -11,10 +11,16 @@
 </head>
 
 <body>
+    <style>
+        #lectorQR {
+            max-width: 800px;
+            max-height: 600px;
+        }
+    </style>
     <div class="login-form formulario">
         <h6>Iniciar sesion</h6>
 
-        <form id="form-login" action="/login" method="POST">
+        <form id="form-login" action="{% url 'web_auth:login' %}" method="POST">
             {% csrf_token %}
             <div class="campo-entrada">
                 <input type="text" id="usuario" name="usuario" placeholder=" " {% if correo %} value="{{ correo }}"
@@ -29,7 +35,7 @@
             </div>
 
             <button class="submit" id="login">Iniciar Sesion</button>
-            <button class="submit" id="registrar" formaction="/registro">Registrarse</button>
+            <button class="submit" id="registrar" formaction="{% url 'web_auth:registro' %}">Registrarse</button>
 
         </form>
         <form>
