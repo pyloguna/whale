@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{% static 'web_auth/css/dark-style.css' %}">
     <link rel="stylesheet" href="{% static 'web_auth/css/style.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--https://github.com/mebjas/html5-qrcode-->
+    <script src="{% static 'web_auth/js/lib/html-qrcode.js' %}"></script>
 </head>
 
 <body>
@@ -19,7 +21,7 @@
     </style>
     <div class="login-form formulario">
         <h6>Iniciar sesion</h6>
-
+        <div id="lectorQR" width="800px" height="600px"></div>
         <form id="form-login" action="{% url 'web_auth:login' %}" method="POST">
             {% csrf_token %}
             <div class="campo-entrada">
@@ -35,12 +37,14 @@
             </div>
 
             <button class="submit" id="login">Iniciar Sesion</button>
-            <button class="submit" id="registrar" formaction="{% url 'web_auth:registro' %}">Registrarse</button>
-
+            <button class="submit" id="registrar" formaction="{% url 'web_auth:registro' %}">Registrarse</button>  
         </form>
         <form>
             <button class="submit" formaction="/google-login">
                 Iniciar sesion con google
+            </button>
+            <button class="submit" type="button" onclick=";iniciarCaptura()">
+                Escanear codigo QR
             </button>
         </form>
 
@@ -93,6 +97,52 @@
 
 
         });
+    </script>
+    <script>
+        function filtrarCodigo(texto) {
+            return texto.match("([^\/]+(^(?=(.{4})*$)[A-Za-z0-9\-_]*)*(==)$)")
+        }
+        function iniciarCaptura() {
+            Html5Qrcode.getCameras().then(devices => {
+
+                if (devices && devices.length) {
+                    let longitud = document.getElementById("lectorQR").getBoundingClientRect().width
+                    let config = { qrbox: 250 };
+                    if (longitud > 100 && longitud < config.qrbox) {
+                        config.qrbox = longitud * .8;
+                    }
+                    else if (longitud < config.qrbox) {
+                        config = {};
+                    }
+                    const html5QrCode = new Html5Qrcode("lectorQR");
+                    const camara = { facingMode: "environment" }
+
+                    html5QrCode.start(
+                        camara,
+                        config,
+                        qrCodeMessage => {
+                            let texto = filtrarCodigo(qrCodeMessage)
+                            if (texto) {
+                                html5QrCode.stop().then(ignore => {
+                                    location.href = "{% url 'web_auth:otpLogin' payload='-' %}".slice(0, -1) + texto;
+                                }).catch(err => {
+                                    alert("no se ha podido detener la grabacion de la camara")
+                                });
+                            }
+                        },
+                        errorMessage => { }
+                    )
+                        .catch(err => {
+                            alert("ha ocurrido un error al escanear la camara")
+                        });
+                }
+                else {
+                    alert("no hay camaras disponibles")
+                }
+            }).catch(err => {
+                alert("no se ha podido obtener permisos de la camara")
+            });
+        }
     </script>
 </body>
 
