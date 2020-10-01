@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 {% load static %}
+
 <head>
     <meta charset="utf-8">
     <title></title>
@@ -10,83 +11,83 @@
 </head>
 
 <body>
-<div class="login-form formulario">
-    <h6>Iniciar sesion</h6>
+    <div class="login-form formulario">
+        <h6>Iniciar sesion</h6>
 
-    <form id="form-login" action="/login" method="POST">
-        {% csrf_token %}
-        <div class="campo-entrada">
-            <input type="text" id="usuario" name="usuario" placeholder=" " {% if correo %} value="{{ correo }}"
-            {% endif %} required>
-            <label for="usuario">Usuario</label>
-        </div>
+        <form id="form-login" action="/login" method="POST">
+            {% csrf_token %}
+            <div class="campo-entrada">
+                <input type="text" id="usuario" name="usuario" placeholder=" " {% if correo %} value="{{ correo }}"
+                    {% endif %} required>
+                <label for="usuario">Usuario</label>
+            </div>
 
-        <div class="campo-entrada">
-            <input type="password" id="pass" name="pass" placeholder=" " {% if password %} value="{{ password }}"
-            {% endif %} required>
-            <label for="pass">Contraseña</label>
-        </div>
+            <div class="campo-entrada">
+                <input type="password" id="pass" name="pass" placeholder=" " {% if password %} value="{{ password }}"
+                    {% endif %} required>
+                <label for="pass">Contraseña</label>
+            </div>
 
-        <button class="submit" id="login">Iniciar Sesion</button>
-        <button class="submit" id="registrar" formaction="/registro">Registrarse</button>
+            <button class="submit" id="login">Iniciar Sesion</button>
+            <button class="submit" id="registrar" formaction="/registro">Registrarse</button>
 
-    </form>
-    <form>
-        <button class="submit" formaction="/google-login">
-            Iniciar sesion con google
-        </button>
-    </form>
+        </form>
+        <form>
+            <button class="submit" formaction="/google-login">
+                Iniciar sesion con google
+            </button>
+        </form>
 
-</div>
-<script>
-    let nombre = document.getElementById("nombre");
-    let correo = document.getElementById("correo")
-    document.getElementById("registrar").addEventListener("click", function (event) {
-        if (!nombre) {
-            document.getElementById("login").style.display = 'none';
-            nombre = document.createElement("div");
-            let campo = document.createElement("input");
-            let etiqueta = document.createElement("label");
-            nombre.className = "campo-entrada";
-            campo.type = "text";
-            campo.id = "nombre";
-            campo.placeholder = " ";
-            campo.name = "nombre";
-            {% if nombre %}
+    </div>
+    <script>
+        let nombre = document.getElementById("nombre");
+        let correo = document.getElementById("correo")
+        document.getElementById("registrar").addEventListener("click", function (event) {
+            if (!nombre) {
+                document.getElementById("login").style.display = 'none';
+                nombre = document.createElement("div");
+                let campo = document.createElement("input");
+                let etiqueta = document.createElement("label");
+                nombre.className = "campo-entrada";
+                campo.type = "text";
+                campo.id = "nombre";
+                campo.placeholder = " ";
+                campo.name = "nombre";
+                {% if nombre %}
                 campo.value = "{{nombre}}"
-            {% endif %}
-            campo.required = true;
-            etiqueta.htmlfor = campo;
-            etiqueta.innerText = "Nombre Completo";
-            nombre.appendChild(campo);
-            nombre.appendChild(etiqueta);
-            document.getElementById("form-login").prepend(nombre);
-            event.preventDefault()
-        }
-        if (!correo) {
-            correo = document.createElement("div");
-            let campo = document.createElement("input");
-            let etiqueta = document.createElement("label");
-            correo.className = "campo-entrada";
-            campo.type = "email";
-            campo.id = "correo";
-            campo.placeholder = " ";
-            campo.name = "correo";
-            {% if correo %}
+                {% endif %}
+                campo.required = true;
+                etiqueta.htmlfor = campo;
+                etiqueta.innerText = "Nombre Completo";
+                nombre.appendChild(campo);
+                nombre.appendChild(etiqueta);
+                document.getElementById("form-login").prepend(nombre);
+                event.preventDefault()
+            }
+            if (!correo) {
+                correo = document.createElement("div");
+                let campo = document.createElement("input");
+                let etiqueta = document.createElement("label");
+                correo.className = "campo-entrada";
+                campo.type = "email";
+                campo.id = "correo";
+                campo.placeholder = " ";
+                campo.name = "correo";
+                {% if correo %}
                 campo.value = "{{correo}}"
-            {% endif %}
-            campo.required = true;
-            etiqueta.htmlfor = campo;
-            etiqueta.innerText = "Correo Electronico";
-            correo.appendChild(campo);
-            correo.appendChild(etiqueta);
-            document.getElementById("form-login").prepend(correo);
-            event.preventDefault()
-        }
+                {% endif %}
+                campo.required = true;
+                etiqueta.htmlfor = campo;
+                etiqueta.innerText = "Correo Electronico";
+                correo.appendChild(campo);
+                correo.appendChild(etiqueta);
+                document.getElementById("form-login").prepend(correo);
+                event.preventDefault()
+            }
 
 
-    });
-</script>
+        });
+    </script>
 </body>
 
 </html>
