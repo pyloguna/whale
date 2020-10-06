@@ -4,6 +4,9 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'web_auth/css/style-dashboard.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
     <title>
         {% if nombre %}
         {{ nombre }}
@@ -21,34 +24,69 @@
 </head>
 
 <body>
-    <div>
-        
-        <div>
+
+ 
+
+
+    <nav class="navbar  sticky-top navbar-custom flex-md-nowrap shadow">
+                <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
+    
+    <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+            <button onclick="location.href='/logout'">Cerrar Sesion</button>
+            </li>
+    </ul>
+    </nav>
+
+    
+<div class="sidebar">
+  <a class="active" href="#home">Dashboard</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="content">
+
+
+            <h2> Dashboard</h2>
+
+            <div class="Imagen-Perfil">
             <a>{{ user.get_username }}</a>
-        </div>
-        <div>
             {% if imagen %}
             <img class="foto_perfil" src="{{ imagen }}" alt="profile pic">
             {% else %}
             <img class="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="profile pic">
             {% endif %}
-            <button onclick="location.href='/logout'">Cerrar Sesion</button>
+
+            </div>
+            
+           
+            <p class="Descripcion">
+                Para usar el Codigo Sync se recomienda utilizar <strong> Google Authenticator</strong> para
+            </p>
             <hr>
-            <label>
-                Para usar el Codigo Sync se recomienda El autenticador de google para
-            </label>
-            <hr>
+
+            
             <label>
                 <a
-                    href="https://play.google.com/store/apps/details?id=com.google.android.apps.web_authenticator2&hl=es_CR">Android
+                    href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=es"  target="_blank" >Android
                 </a>
             </label>
             <hr>
             <label>
-                <a href="https://apps.apple.com/es/app/google-web_authenticator/id388497605">IOS</a>
+                <a href="https://apps.apple.com/es/app/google-web_authenticator/id388497605" target="_blank" >IOS</a>
             </label>
             <a href></a>
-        </div>
+       
         <form id="form-login" action="{% url 'web_auth:otpDeviceAdd' %}" method="POST">
             <h2>Agregar un nuevo dispositivo</h2>
             {% csrf_token %}
@@ -60,6 +98,10 @@
 
         </form>
         <hr>
+
+   
+
+        
 
         {% if otp_devices.count == 0 %}
         <h3>No hay dispositos actualmente</h3>
@@ -99,7 +141,16 @@
             </tbody>
         </table>
         {% endif %}
+          </div>
+          
     </div>
+    <div class="col-sm-4">
+      One of three columns
+    </div>
+  </div>
+</div>
+        
+   
     <script>
         function refresh(node, tiempo) {
             (function startRefresh() {
@@ -128,6 +179,7 @@
 
 
     </script>
+    
 
 </body>
 

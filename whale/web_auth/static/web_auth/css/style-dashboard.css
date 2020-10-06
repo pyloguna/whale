@@ -1,0 +1,134 @@
+body{
+    background-color: #f1f1f1 !important;
+    font-family: raleway !important;
+}
+ 
+
+h2{
+    font-family: raleway;
+}
+
+.Imagen-Perfil{
+    padding-top: 50px;
+    padding-left: 50%;
+    padding-right: 50%;
+}
+
+p{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+a{
+    text-align: center;
+    color: #a465f2 !important;
+}
+
+
+
+
+.menu {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    width: 200px;
+  }
+  
+  .menu > li > a {
+    background: blue;
+    color: #fff;
+    display: block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .menu ul {
+    background: #ddd;
+    height: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    transition: all .5s ease;
+    top: 35px;
+    width: 100%;
+  }
+  
+  .menu li:hover ul {
+    height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .menu ul a {
+    color: #000;
+    display: block;
+    padding: 5px 20px;
+  }
+
+
+
+
+.navbar-custom { 
+    background-color: #a465f2; 
+    font-family: raleway;
+    color: white;
+} 
+
+.navbar-brand{
+    color: white;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+    font-family: raleway;
+    margin-top: 50px;
+  }
+   
+  .sidebar a.active {
+    background-color: #a465f2;
+    color: white;
+  }
+  
+  .sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+  
+  div.content {
+    padding-left: ;
+    padding-top: 50px;
+    height: 1000px;
+    background-color: #f1f1f1;
+  }
+  
+  @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  }

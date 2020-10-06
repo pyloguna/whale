@@ -9,6 +9,7 @@
     outline: none;
     color: #f4f4f4;
     transition: background-color 100ms linear;
+    border-radius: 12px;
 }
 
 .campo-entrada.erroneo input {
@@ -35,6 +36,7 @@
     transition: all 0.3s;
     color: #999;
     font-weight: normal;
+    margin-left: 12px;
 }
 
 .campo-entrada input:focus~label,
