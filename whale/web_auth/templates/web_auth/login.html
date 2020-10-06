@@ -7,48 +7,79 @@
     <title></title>
     <link rel="stylesheet" href="{% static 'web_auth/css/dark-style.css' %}">
     <link rel="stylesheet" href="{% static 'web_auth/css/style.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <!--https://github.com/mebjas/html5-qrcode-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{% static 'web_auth/js/lib/html-qrcode.js' %}"></script>
+
 </head>
 
 <body>
+
     <style>
         #lectorQR {
             max-width: 800px;
             max-height: 600px;
         }
     </style>
-    <div class="login-form formulario">
-        <h6>Iniciar sesion</h6>
-        <div id="lectorQR" width="800px" height="600px"></div>
-        <form id="form-login" action="{% url 'web_auth:login' %}" method="POST">
-            {% csrf_token %}
-            <div class="campo-entrada">
-                <input type="text" id="usuario" name="usuario" placeholder=" " {% if correo %} value="{{ correo }}"
-                    {% endif %} required>
-                <label for="usuario">Usuario</label>
-            </div>
 
-            <div class="campo-entrada">
-                <input type="password" id="pass" name="pass" placeholder=" " {% if password %} value="{{ password }}"
-                    {% endif %} required>
-                <label for="pass">Contraseña</label>
-            </div>
+
+    <div class="animate__animated animate__fadeIn">
+    <div class="imagen-form">
+    <div class="login-form formulario">
+
+        <div>
+             <img class="Logo-UNA" src="/static/web_auth/images/UNALOGO.png">
+                <h6 class="animate__animated animate__fadeInRight">Iniciar Sesion</h6>
+        </div>
+
+        <div id="lectorQR" width="800px" height="600px"></div>
+       
+            <form id="form-login" action="{% url 'web_auth:login' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="animate__animated animate__fadeInUp animate__slow">
+                    <div class="campo-entrada">
+                        <input type="text" id="usuario" name="usuario" placeholder=" " {% if correo %} value="{{ correo }}"
+                                {% endif %} required>
+                <label for="usuario"> <i class="fa fa-user icon"></i>Usuario</label>
+                    </div>
+
+                    <div class="campo-entrada">
+                        <input type="password" id="pass" name="pass" placeholder=" " {% if password %} value="{{ password }}"
+                                {% endif %} required>          
+                <label for="pass"><i class="fa fa-key icon"></i>Contraseña</label>
+                   </div>
+                </div>
 
             <button class="submit" id="login">Iniciar Sesion</button>
             <button class="submit" id="registrar" formaction="{% url 'web_auth:registro' %}">Registrarse</button>  
-        </form>
+
+            </form>
+
+
         <form>
+            
             <button class="submit" formaction="/google-login">
                 Iniciar sesion con google
             </button>
+            
             <button class="submit" type="button" onclick=";iniciarCaptura()">
                 Escanear codigo QR
+            
             </button>
         </form>
 
     </div>
+    </div>
+    </div>
+
+
     <script>
         let nombre = document.getElementById("nombre");
         let correo = document.getElementById("correo")
@@ -98,6 +129,7 @@
 
         });
     </script>
+    
     <script>
         function filtrarCodigo(texto) {
             return texto.match("([^\/]+(^(?=(.{4})*$)[A-Za-z0-9\-_]*)*(==)$)")
@@ -144,6 +176,8 @@
             });
         }
     </script>
+
+
 </body>
 
 </html>
