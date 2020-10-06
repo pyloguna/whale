@@ -22,12 +22,11 @@
 
 <body>
     <div>
-        {% if correo %}
+        
         <div>
-            <a>{{ correo }}</a>
+            <a>{{ user.get_username }}</a>
         </div>
         <div>
-            {% endif %}
             {% if imagen %}
             <img class="foto_perfil" src="{{ imagen }}" alt="profile pic">
             {% else %}
