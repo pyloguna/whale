@@ -11,7 +11,7 @@ services:
     environment:
       - DJANGO_DOCKER_ENV=1
     build: .
-    command: python portal/manage.py runserver 0.0.0.0:8000
+    command: python whale/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
