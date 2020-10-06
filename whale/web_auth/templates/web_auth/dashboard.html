@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static 'web_auth/css/style-dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     
     <title>
@@ -33,9 +34,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
             
-            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
-    
+            
+            <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search">
+
+            <div class="NombrePerfil">
+            <img class="foto-perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="profile pic">
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">{{ user.get_username }}</a>
+            </div>
+
     <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
             <button onclick="location.href='/logout'">Cerrar Sesion</button>
@@ -56,38 +62,18 @@
     <div class="col-sm-8">
       <div class="content">
 
-
-            <h2> Dashboard</h2>
-
-            <div class="Imagen-Perfil">
-            <a>{{ user.get_username }}</a>
-            {% if imagen %}
-            <img class="foto_perfil" src="{{ imagen }}" alt="profile pic">
-            {% else %}
-            <img class="foto_perfil" src="{% static 'web_auth/images/profile-default.png' %}" alt="profile pic">
-            {% endif %}
-
+            <div class="animate__animated animate__fadeInUp animate__slow">
+            <h2> Inicio</h2>
             </div>
             
            
-            <p class="Descripcion">
-                Para usar el Codigo Sync se recomienda utilizar <strong> Google Authenticator</strong> para
-            </p>
-            <hr>
+           
 
             
-            <label>
-                <a
-                    href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=es"  target="_blank" >Android
-                </a>
-            </label>
-            <hr>
-            <label>
-                <a href="https://apps.apple.com/es/app/google-web_authenticator/id388497605" target="_blank" >IOS</a>
-            </label>
-            <a href></a>
+            
        
         <form id="form-login" action="{% url 'web_auth:otpDeviceAdd' %}" method="POST">
+        <div class="Dispositivo">
             <h2>Agregar un nuevo dispositivo</h2>
             {% csrf_token %}
             <label>
@@ -95,7 +81,7 @@
                 <input type="text" id="otp_name" name="otp_name">
                 <button type="submit">Agregar nuevo dispositivo</button>
             </label>
-
+        </div>
         </form>
         <hr>
 
@@ -145,7 +131,64 @@
           
     </div>
     <div class="col-sm-4">
-      One of three columns
+        <div class="Calendario">
+            <p>Martes</p>
+            <p>Octubre 10, 2020</p>
+        </div>
+        <div class="month">      
+  <ul>
+    <li class="prev">&#10094;</li>
+    <li class="next">&#10095;</li>
+    <li>
+      Octubre<br>
+      <span style="font-size:18px">2020</span>
+    </li>
+  </ul>
+</div>
+
+<ul class="weekdays">
+  <li>Mo</li>
+  <li>Tu</li>
+  <li>We</li>
+  <li>Th</li>
+  <li>Fr</li>
+  <li>Sa</li>
+  <li>Su</li>
+</ul>
+
+<ul class="days">  
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+  <li>7</li>
+  <li>8</li>
+  <li>9</li>
+  <li><span class="active">10</span></li>
+  <li>11</li>
+  <li>12</li>
+  <li>13</li>
+  <li>14</li>
+  <li>15</li>
+  <li>16</li>
+  <li>17</li>
+  <li>18</li>
+  <li>19</li>
+  <li>20</li>
+  <li>21</li>
+  <li>22</li>
+  <li>23</li>
+  <li>24</li>
+  <li>25</li>
+  <li>26</li>
+  <li>27</li>
+  <li>28</li>
+  <li>29</li>
+  <li>30</li>
+  <li>31</li>
+</ul>
     </div>
   </div>
 </div>
@@ -180,6 +223,27 @@
 
     </script>
     
+
+
+<div class="footer">
+   <p class="Descripcion">
+        Para usar el Codigo Sync se recomienda utilizar <strong> Google Authenticator</strong> para
+            <label>
+                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=es"  target="_blank" >Android </a>
+            </label>
+
+            <label>
+                <a href="https://apps.apple.com/es/app/google-web_authenticator/id388497605" target="_blank" >IOS</a>
+            </label>
+    </p>
+
+   
+
+</div>
+
+
+
+
 
 </body>
 
