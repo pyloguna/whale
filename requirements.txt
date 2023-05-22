@@ -3,7 +3,7 @@ psycopg2-binary>=2.8
 click~=7.1.2
 pillow
 mysql-connector
-requests==2.21.0
+requests==2.31.0
 Flask==1.0.2
 oauthlib==3.0.1
 pyOpenSSL==19.0.0
